@@ -26,12 +26,20 @@ class GridBatikAdapter() :
 
     inner class ViewHolder(private val binding: ItemGridBatikBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(batik: BatikItem) {
+        fun bind(batik: BatikItem, position: Int) {
             Glide.with(itemView)
                 .load(Uri.parse(batik.imagePath))
                 .apply(RequestOptions().override(350, 550))
                 .into(binding.imgBatik)
-
+            if (selectedPosition==position){
+                itemView.setBackgroundColor(Color.BLUE)
+            }else{
+                itemView.setBackgroundColor(Color.TRANSPARENT)
+            }
+            itemView.setOnClickListener {
+                selectedPosition = position
+                notifyDataSetChanged()
+            }
         }
 
     }
@@ -43,16 +51,7 @@ class GridBatikAdapter() :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(listBatik[position])
-        if (selectedPosition == position){
-            holder.itemView.setBackgroundColor(Color.BLUE)
-        }else{
-            holder.itemView.setBackgroundColor(Color.TRANSPARENT)
-        }
-        holder.itemView.setOnClickListener {
-            selectedPosition = position
-            notifyDataSetChanged()
-        }
+        holder.bind(listBatik[position], position)
     }
 
     override fun getItemCount(): Int = listBatik.size

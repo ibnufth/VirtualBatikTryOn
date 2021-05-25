@@ -38,13 +38,11 @@ class JsonHelper(private val context: Context) {
 
                 val listOrigin= ArrayList<String>()
 
-                val originResponse = batik.getString("origin")
-                listOrigin.addAll(listOf(originResponse))
-//                for (k in 0 until  originResponse.length()){
-//                    val origin = originResponse.getString(k)
-//                    listOrigin.add(origin)
-//
-//                }
+                val originResponse = batik.getJSONArray("origin")
+                for (k in 0 until  originResponse.length()){
+                    val origin = originResponse.getString(k)
+                    listOrigin.add(origin)
+                }
                 val imageRoot = "file:///android_asset/"
                 val batikResponse = BatikItem(
                     batik.getString("id"),
