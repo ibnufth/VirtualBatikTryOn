@@ -1,13 +1,19 @@
 package com.dimensicodes.virtualbatiktryon.ui.pattern
 
+import android.graphics.Color
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
+import com.dimensicodes.virtualbatiktryon.data.source.local.remote.response.BatikItem
 import com.dimensicodes.virtualbatiktryon.databinding.ItemGridBatikBinding
 
-class GridBatikAdapter : RecyclerView.Adapter<GridBatikAdapter.ViewHolder>() {
+class GridBatikAdapter() :
+    RecyclerView.Adapter<GridBatikAdapter.ViewHolder>() {
 
-    var listBatik = ArrayList<String>()
+    var listBatik = ArrayList<BatikItem>()
             set(listBatik) {
                 if(listBatik.size > 0 ){
                     this.listBatik.clear()
@@ -16,20 +22,37 @@ class GridBatikAdapter : RecyclerView.Adapter<GridBatikAdapter.ViewHolder>() {
                 notifyDataSetChanged()
             }
 
-    class ViewHolder(private val binding: ItemGridBatikBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(batik: String) {
+    private var selectedPosition = -1
+
+    inner class ViewHolder(private val binding: ItemGridBatikBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(batik: BatikItem) {
+            Glide.with(itemView)
+                .load(Uri.parse(batik.imagePath))
+                .apply(RequestOptions().override(350, 550))
+                .into(binding.imgBatik)
 
         }
 
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = ItemGridBatikBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+        val binding =
+            ItemGridBatikBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(listBatik[position])
+        if (selectedPosition == position){
+            holder.itemView.setBackgroundColor(Color.BLUE)
+        }else{
+            holder.itemView.setBackgroundColor(Color.TRANSPARENT)
+        }
+        holder.itemView.setOnClickListener {
+            selectedPosition = position
+            notifyDataSetChanged()
+        }
     }
 
     override fun getItemCount(): Int = listBatik.size
