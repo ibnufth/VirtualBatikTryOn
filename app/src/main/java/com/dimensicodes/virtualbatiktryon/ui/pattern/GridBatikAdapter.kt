@@ -13,6 +13,16 @@ import com.dimensicodes.virtualbatiktryon.databinding.ItemGridBatikBinding
 class GridBatikAdapter() :
     RecyclerView.Adapter<GridBatikAdapter.ViewHolder>() {
 
+    private lateinit var onItemClickCallback : OnitemCLickCallback
+
+    fun setOnItemClickCallBack(onItemCLickCallback: OnitemCLickCallback){
+        this.onItemClickCallback = onItemCLickCallback
+    }
+
+    interface OnitemCLickCallback {
+        fun onItemClicked(data:BatikItem)
+    }
+
     var listBatik = ArrayList<BatikItem>()
             set(listBatik) {
                 if(listBatik.size > 0 ){
@@ -38,6 +48,7 @@ class GridBatikAdapter() :
             }
             itemView.setOnClickListener {
                 selectedPosition = position
+                onItemClickCallback.onItemClicked(batik)
                 notifyDataSetChanged()
             }
         }

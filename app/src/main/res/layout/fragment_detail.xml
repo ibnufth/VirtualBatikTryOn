@@ -74,6 +74,15 @@
         app:layout_constraintTop_toBottomOf="@+id/detail" />
 
     <TextView
+        android:id="@+id/tv_style_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        tools:text="@string/style_type"
+        app:layout_constraintStart_toEndOf="@+id/style_type"
+        app:layout_constraintTop_toTopOf="@+id/style_type" />
+
+    <TextView
         android:id="@+id/pattern"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -81,6 +90,14 @@
         android:text="@string/Pattern"
         app:layout_constraintEnd_toEndOf="@+id/style_type"
         app:layout_constraintTop_toBottomOf="@+id/style_type" />
+
+    <TextView
+        android:id="@+id/tv_pattern"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="@string/Pattern"
+        app:layout_constraintStart_toStartOf="@+id/tv_style_type"
+        app:layout_constraintTop_toTopOf="@+id/pattern" />
 
     <EditText
         android:id="@+id/edt_chest"

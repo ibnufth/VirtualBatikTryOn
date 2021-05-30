@@ -1,8 +1,7 @@
 package com.dimensicodes.virtualbatiktryon.data.source.local.remote.response
 
-import android.os.Parcelable
+
 import com.google.gson.annotations.SerializedName
-import kotlinx.parcelize.Parcelize
 
 data class BatikResponse(
 
@@ -10,7 +9,6 @@ data class BatikResponse(
     val batik: List<BatikItem?>? = null
 )
 
-@Parcelize
 data class BatikItem(
 
     @field:SerializedName("id")
@@ -24,4 +22,4 @@ data class BatikItem(
 
     @field:SerializedName("imagePath")
     val imagePath: String? = null
-) : Parcelable
+)
